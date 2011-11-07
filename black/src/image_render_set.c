@@ -9,8 +9,8 @@ struct image_render_set
 {
     char *name;                    /* the name of this image set */
     struct keyframe **frames;      /* the array of keyframes */
-    unsigned int num_frames;       /* the actual number of frames */
-    unsigned int cap_frames;       /* the maximum number of frames allocated */
+    int num_frames;       /* the actual number of frames */
+    int cap_frames;       /* the maximum number of frames allocated */
 
     RB_ENTRY(image_render_set) _rb_tree_entry;
 };
@@ -50,7 +50,6 @@ get_set(char *name)
 void
 image_render_set_add(char *name, char *image_name, int num_ticks)
 {
-    int i;
     struct image_render_set *e = get_set(name);
     e->frames = memory_grow_to_size(e->frames,
                                     sizeof(*e->frames),
